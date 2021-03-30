@@ -3,6 +3,7 @@ import Header from './Header'
 import axios from 'axios'
 import './style.css'
 
+import './style.css'
 const ShowCountry = ({ country }) => {
     const [ weather, setWeather] = useState(undefined)
 
