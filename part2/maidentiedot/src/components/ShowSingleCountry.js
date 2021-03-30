@@ -27,6 +27,9 @@ const ShowCountry = ({ country }) => {
         if(api_key === undefined) {
             return( <div>invalid api key</div>)
         }
+    if (weather == undefined) {
+        return ( <div>loading...</div>)
+    } else {
         return(
             <>
                 <Header header={country.name} />
