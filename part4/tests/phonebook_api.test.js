@@ -93,6 +93,30 @@ test('default value for likes is 0', async () => {
     expect(likes).toBe(0)
 })
 
+test('request without url/title returns 400 bad request', async () => {
+    const newBlog = {
+        title: 'Test blog',
+        author: 'Testy Tester',
+    }
+
+    await api
+        .post('/api/blogs')
+        .send(newBlog)
+        .expect(400)
+        .expect('Content-Type', /application\/json/)
+
+    const newBlog2 = {
+        url: 'www.google.com',
+        author: 'Testy Tester',
+    }
+
+    await api
+        .post('/api/blogs')
+        .send(newBlog2)
+        .expect(400)
+        .expect('Content-Type', /application\/json/)
+})
+
 afterAll(() => {
     mongoose.connection.close()
 })

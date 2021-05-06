@@ -7,6 +7,7 @@ blogsRouter.get('/', async (request, response) => {
 })
 
 blogsRouter.post('/', async (request, response) => {
+    let savedBlog = undefined
     const body = request.body
 
     const blog = new Blog({
@@ -15,8 +16,13 @@ blogsRouter.post('/', async (request, response) => {
         url: body.url,
         likes: body.likes
     })
-
-    const savedBlog = await blog.save()
+    try {
+        savedBlog = await blog.save()
+    } catch (error) {
+        if (error.name === 'ValidationError') {
+            return response.status(400).json({ error: error.message })
+        }
+    }
     response.status(201)
     response.json(savedBlog.toJSON())
 })
