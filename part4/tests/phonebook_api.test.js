@@ -50,6 +50,28 @@ test ('the first field is called id', async () => {
     expect(response.body[0].id).toBeDefined()
 })
 
+test('a valid blog can be added', async () => {
+    const newBlog = {
+        title: 'Test blog',
+        author: 'Testy Tester',
+        url: 'www.google.com',
+        likes: 9
+    }
+
+    await api
+        .post('/api/blogs')
+        .send(newBlog)
+        .expect(201)
+        .expect('Content-Type', /application\/json/)
+
+    const response = await api.get('/api/blogs')
+
+    const contents = response.body.map(r => r.title)
+
+    expect(response.body).toHaveLength(initialBlogs.length + 1)
+    expect(contents).toContain('Test blog')
+})
+
 afterAll(() => {
     mongoose.connection.close()
 })
