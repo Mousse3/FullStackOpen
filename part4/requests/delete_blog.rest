@@ -1,0 +1,2 @@
+DELETE http://localhost:3003/api/blogs/609a51e1008ed82ee0bc84d2
+Content-Type: text/plain

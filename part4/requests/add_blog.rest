@@ -2,8 +2,8 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-    "title": "Testiblogi2",
+    "title": "Kuinka poistetaan blogi",
     "author":"Olli Kirjoittaja",
     "url": "www.wordpress.com",
-    "likes": 4
+    "likes":7
 }
