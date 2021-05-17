@@ -1,10 +1,10 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
+
 {
-    "title": "Metsien Kätköissä",
-    "author":"Janne Simonen",
+    "title": "Kasvupaikkaoppi",
+    "author":"Metsä mestari",
     "url": "www.doodle.com",
-    "likes":5,
-    "userId": "60a2496d6efccb0fa0e1fbe3"
+    "likes":5
 }
