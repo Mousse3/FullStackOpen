@@ -2,8 +2,9 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-    "title": "Kuinka poistetaan blogi",
-    "author":"Olli Kirjoittaja",
-    "url": "www.wordpress.com",
-    "likes":7
+    "title": "Metsien Kätköissä",
+    "author":"Janne Simonen",
+    "url": "www.doodle.com",
+    "likes":5,
+    "userId": "60a2496d6efccb0fa0e1fbe3"
 }
