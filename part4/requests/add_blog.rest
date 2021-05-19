@@ -1,10 +1,11 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRhZ3JvaG4iLCJpZCI6IjYwYTI0OTZkNmVmY2NiMGZhMGUxZmJlMyIsImlhdCI6MTYyMTQxMzI1MH0.MNLntDKocQqxJhxi_BdtkrR_B4QPhhe9BsT6kd1CIDM
 
 
 {
-    "title": "Kasvupaikkaoppi",
-    "author":"Metsä mestari",
+    "title": "Näkyykö",
+    "author":"Ehkä?",
     "url": "www.doodle.com",
     "likes":5
 }
