@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
-import User from './components/User'
 import LoggedUser from './components/User'
 import blogService from './services/blogs'
 import loginService from './services/login'
@@ -9,8 +8,10 @@ const App = () => {
   const [blogs, setBlogs] = useState([])
   const [username, setUsername] = useState('') 
   const [password, setPassword] = useState('')
-  const [errorMessage, setErrorMessage] = useState(null)
-  const [user, setUser] = useState(null) 
+  const [user, setUser] = useState(null)
+  const [newTitle, setNewTitle] = useState('')
+  const [newAuthor, setNewAuthor] = useState('')
+  const [newUrl, setNewUrl] = useState('')
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -27,6 +28,24 @@ const App = () => {
     }
   }, [])
 
+  const addBlog = (event) => {
+    event.preventDefault()
+    const blogObject = {
+      author: newAuthor,
+      title: newTitle,
+      url: newUrl,
+    }
+
+    blogService
+      .create(blogObject)
+        .then(returnedNote => {
+          setBlogs(blogs.concat(returnedNote))
+          setNewTitle('')
+          setNewAuthor('')
+          setNewUrl('')
+      })
+  }
+
   const handleLogin = async (event) => {
     event.preventDefault()
     
@@ -41,11 +60,22 @@ const App = () => {
       setUsername('')
       setPassword('')
     } catch (exception) {
-      setErrorMessage('wrong credentials')
-      setTimeout(() => {
-        setErrorMessage(null)
-      }, 5000)
     }
+  }
+
+  const handleTitleChange = (event) => {
+    console.log(event.target.value)
+    setNewTitle(event.target.value)
+  }
+
+  const handleAuthorChange = (event) => {
+    console.log(event.target.value)
+    setNewAuthor(event.target.value)
+  }
+
+  const handleUrlChange = (event) => {
+    console.log(event.target.value)
+    setNewUrl(event.target.value)
   }
 
   if (user === null) {
@@ -84,6 +114,18 @@ const App = () => {
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
       )}
+      <h2>Create new</h2>
+      <form onSubmit={addBlog}>
+          <p>Title:</p>
+          <input type='text' onChange={handleTitleChange} value={newTitle}/>
+          <p>Author:</p>
+          <input type='text' onChange={handleAuthorChange} value={newAuthor}/>
+          <p>Url:</p>
+          <input type='text' onChange={handleUrlChange} value={newUrl}/>
+          <br></br>
+          <br></br>
+          <button type='submit'>Save</button>
+        </form>
     </div>
   )
 }
