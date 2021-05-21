@@ -3,6 +3,9 @@ import Blog from './components/Blog'
 import LoggedUser from './components/User'
 import blogService from './services/blogs'
 import loginService from './services/login'
+import Togglable from './components/Togglable'
+import BlogForm from './components/BlogForm'
+
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -78,56 +81,59 @@ const App = () => {
     setNewUrl(event.target.value)
   }
 
+  const loginForm = () => (
+    <div>
+      <h2>log in</h2>
+      <form onSubmit={handleLogin}>
+        <div>
+          username
+            <input
+            type="text"
+            value={username}
+            name="Username"
+            onChange={({ target }) => setUsername(target.value)}
+          />
+        </div>
+        <div>
+          password
+            <input
+            type="password"
+            value={password}
+            name="Password"
+            onChange={({ target }) => setPassword(target.value)}
+          />
+        </div>
+        <button type="submit">login</button>
+      </form>  
+    </div>    
+  )
+
   if (user === null) {
-    return(
+    return (
+      loginForm()
+    )
+  } else {
+    return (
       <div>
-        <h2>Login</h2>
-        <form onSubmit={handleLogin}>
-          <div>
-            username
-              <input
-              type="text"
-              value={username}
-              name="Username"
-              onChange={({ target }) => setUsername(target.value)}
-            />
-          </div>
-          <div>
-            password
-             <input
-              type="password"
-              value={password}
-              name="Password"
-              onChange={({ target }) => setPassword(target.value)}
-            />
-          </div>
-          <button type="submit">login</button>
-        </form>
+        <LoggedUser user={user} />
+        <h2>blogs</h2>
+        {blogs.map(blog =>
+          <Blog key={blog.id} blog={blog} />
+        )}
+        <Togglable buttonLabel='Create blog'>
+          <BlogForm
+            addBlog={addBlog}
+            handleAuthorChange={handleAuthorChange}
+            handleTitleChange={handleTitleChange}
+            handleUrlChange={handleUrlChange}
+            newTitle={newTitle}
+            newAuthor={newAuthor}
+            newUrl={newUrl}
+          />
+        </Togglable>
       </div>
     )
   }
-  
-  return (
-    <div>
-      <h2>blogs</h2>
-      <LoggedUser key={user.id} user={user} />
-      {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
-      )}
-      <h2>Create new</h2>
-      <form onSubmit={addBlog}>
-          <p>Title:</p>
-          <input type='text' onChange={handleTitleChange} value={newTitle}/>
-          <p>Author:</p>
-          <input type='text' onChange={handleAuthorChange} value={newAuthor}/>
-          <p>Url:</p>
-          <input type='text' onChange={handleUrlChange} value={newUrl}/>
-          <br></br>
-          <br></br>
-          <button type='submit'>Save</button>
-        </form>
-    </div>
-  )
 }
 
 export default App
