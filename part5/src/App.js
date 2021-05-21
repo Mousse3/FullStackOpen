@@ -12,9 +12,6 @@ const App = () => {
   const [username, setUsername] = useState('') 
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
-  const [newTitle, setNewTitle] = useState('')
-  const [newAuthor, setNewAuthor] = useState('')
-  const [newUrl, setNewUrl] = useState('')
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -31,24 +28,6 @@ const App = () => {
     }
   }, [])
 
-  const addBlog = (event) => {
-    event.preventDefault()
-    const blogObject = {
-      author: newAuthor,
-      title: newTitle,
-      url: newUrl,
-    }
-
-    blogService
-      .create(blogObject)
-        .then(returnedNote => {
-          setBlogs(blogs.concat(returnedNote))
-          setNewTitle('')
-          setNewAuthor('')
-          setNewUrl('')
-      })
-  }
-
   const handleLogin = async (event) => {
     event.preventDefault()
     
@@ -64,21 +43,6 @@ const App = () => {
       setPassword('')
     } catch (exception) {
     }
-  }
-
-  const handleTitleChange = (event) => {
-    console.log(event.target.value)
-    setNewTitle(event.target.value)
-  }
-
-  const handleAuthorChange = (event) => {
-    console.log(event.target.value)
-    setNewAuthor(event.target.value)
-  }
-
-  const handleUrlChange = (event) => {
-    console.log(event.target.value)
-    setNewUrl(event.target.value)
   }
 
   const loginForm = () => (
@@ -122,13 +86,8 @@ const App = () => {
         )}
         <Togglable buttonLabel='Create blog'>
           <BlogForm
-            addBlog={addBlog}
-            handleAuthorChange={handleAuthorChange}
-            handleTitleChange={handleTitleChange}
-            handleUrlChange={handleUrlChange}
-            newTitle={newTitle}
-            newAuthor={newAuthor}
-            newUrl={newUrl}
+            setBlogs={setBlogs}
+            blogs={blogs}
           />
         </Togglable>
       </div>

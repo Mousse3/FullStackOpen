@@ -1,6 +1,45 @@
-import React from 'react'
+import React, { useState } from 'react'
+import blogService from '../services/blogs'
 
-const BlogForm = ({ addBlog, handleAuthorChange, handleTitleChange, handleUrlChange, newTitle, newAuthor, newUrl}) => {
+
+const BlogForm = ({ setBlogs, blogs }) => {
+  const [newTitle, setNewTitle] = useState('')
+  const [newAuthor, setNewAuthor] = useState('')
+  const [newUrl, setNewUrl] = useState('')
+
+  const handleTitleChange = (event) => {
+    console.log(event.target.value)
+    setNewTitle(event.target.value)
+  }
+
+  const handleAuthorChange = (event) => {
+    console.log(event.target.value)
+    setNewAuthor(event.target.value)
+  }
+
+  const handleUrlChange = (event) => {
+    console.log(event.target.value)
+    setNewUrl(event.target.value)
+  }
+
+  const addBlog = (event) => {
+    event.preventDefault()
+    const blogObject = {
+      author: newAuthor,
+      title: newTitle,
+      url: newUrl,
+    }
+
+    blogService
+      .create(blogObject)
+        .then(returnedNote => {
+          setBlogs(blogs.concat(returnedNote))
+          setNewTitle('')
+          setNewAuthor('')
+          setNewUrl('')
+      })
+  }
+
   return(
     <div>
         <h2>Create new</h2>
