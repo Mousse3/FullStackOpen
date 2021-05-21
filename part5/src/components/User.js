@@ -1,18 +1,18 @@
 import React from 'react'
 
 const logOut = () => {
-    window.localStorage.removeItem('loggedBlogappUser')
-    window.location.reload()
+  window.localStorage.removeItem('loggedBlogappUser')
+  window.location.reload()
 }
 
-const User = ({user}) => (
+const User = ({ user }) => (
   <div>
     <p>
       {user.name}
-        <b> logged in </b>
-        <button onClick={logOut}>logout</button>
+      <b> logged in </b>
+      <button onClick={logOut}>logout</button>
     </p>
-  </div>  
-  )
+  </div>
+)
 
 export default User

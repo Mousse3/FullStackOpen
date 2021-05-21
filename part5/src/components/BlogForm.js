@@ -33,34 +33,35 @@ const BlogForm = ({ setBlogs, blogs }) => {
 
     blogService
       .create(blogObject)
-        .then(returnedNote => {
-          setBlogs(blogs.concat(returnedNote))
-          setNewTitle('')
-          setNewAuthor('')
-          setNewUrl('')
+      .then(returnedNote => {
+        setBlogs(blogs.concat(returnedNote))
+        setNewTitle('')
+        setNewAuthor('')
+        setNewUrl('')
       })
   }
 
   return(
     <div>
-        <h2>Create new</h2>
-        <form onSubmit={addBlog}>
-            <p>Title:</p>
-            <input type='text' onChange={handleTitleChange} value={newTitle}/>
-            <p>Author:</p>
-            <input type='text' onChange={handleAuthorChange} value={newAuthor}/>
-            <p>Url:</p>
-            <input type='text' onChange={handleUrlChange} value={newUrl}/>
-            <br></br>
-            <br></br>
-            <button type='submit'>Save</button>
-        </form>
+      <h2>Create new</h2>
+      <form onSubmit={addBlog}>
+        <p>Title:</p>
+        <input type='text' onChange={handleTitleChange} value={newTitle}/>
+        <p>Author:</p>
+        <input type='text' onChange={handleAuthorChange} value={newAuthor}/>
+        <p>Url:</p>
+        <input type='text' onChange={handleUrlChange} value={newUrl}/>
+        <br></br>
+        <br></br>
+        <button type='submit'>Save</button>
+      </form>
     </div>
   )
 }
 
 BlogForm.propTypes = {
-    setBlogs: PropTypes.func.isRequired,
-    blogs: PropTypes.array.isRequired
+  setBlogs: PropTypes.func.isRequired,
+  blogs: PropTypes.array.isRequired
 }
+
 export default BlogForm
